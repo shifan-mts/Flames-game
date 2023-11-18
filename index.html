@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flames Game</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h2 style="color: #4CAF50;">Flames Game</h2>
+    <label for="yourName">Your Name:</label>
+    <input type="text" id="yourName" placeholder="Enter your name">
+
+    <label for="partnerName">Partner's Name:</label>
+    <input type="text" id="partnerName" placeholder="Enter partner's name">
+
+    <button onclick="calculateFlames()">Calculate Flames</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculateFlames() {
+        var yourName = document.getElementById('yourName').value.toLowerCase().replace(/\s/g, '');
+        var partnerName = document.getElementById('partnerName').value.toLowerCase().replace(/\s/g, '');
+
+        var flames = "flames";
+        for (var i = 0; i < yourName.length; i++) {
+            var char = yourName.charAt(i);
+            if (partnerName.includes(char)) {
+                partnerName = partnerName.replace(char, '');
+                yourName = yourName.replace(char, '');
+                i--;
+            }
+        }
+
+        var totalChars = yourName.length + partnerName.length;
+        var resultIndex = totalChars % flames.length;
+
+        var resultText = "";
+        switch (flames.charAt(resultIndex)) {
+            case 'f':
+                resultText = "Friendship";
+                break;
+            case 'l':
+                resultText = "Love";
+                break;
+            case 'a':
+                resultText = "Affection";
+                break;
+            case 'm':
+                resultText = "Marriage";
+                break;
+            case 'e':
+                resultText = "Enemy";
+                break;
+            case 's':
+                resultText = "Siblings";
+                break;
+        }
+
+        document.getElementById('result').innerText = "Result: " + resultText;
+    }
+</script>
+
+</body>
+</html>
